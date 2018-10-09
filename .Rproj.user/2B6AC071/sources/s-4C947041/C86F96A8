@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1539083165941.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C86F96A8",
+    "lastKnownWriteTime" : 1539093131,
+    "last_content_update" : 1539093131364,
+    "path" : "~/git/knapsack/R/knapsack.R",
+    "project_path" : "R/knapsack.R",
+    "properties" : {
+        "cursorPosition" : "0,8",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

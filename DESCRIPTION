@@ -9,3 +9,5 @@ License: Apache License
 Encoding: UTF-8
 LazyData: true
 Imports: binaryLogic
+RoxygenNote: 6.1.0
+Suggests: testthat

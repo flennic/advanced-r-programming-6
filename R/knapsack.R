@@ -1,4 +1,4 @@
- library(binaryLogic)
+library(binaryLogic)
 
 #' combination_object_output
 #'
@@ -55,6 +55,35 @@ brute_force_knapsack = function(x, W) {
   return(combination_object_output(combination_objects.as.df[1,]))
 }
 
+#' knapsack dynamic
+#'
+#' @param x A data.frame with the colums v (value) and w (weight) as numerical values.
+#' @param W Maximum weight.
+#'
+#' @return Returns the best combination of objects to pick, so that v is max.
+#' @export
+#'
+knapsack_dynamic = function(x, W) {
+  knapsack_input_validation(x, W)
+  m = matrix(rep(0, nrow(x)*W), nrow = nrow(x))
+
+  for (i in 1:nrow(x)) {
+    for (j in 0:W) {
+      if (x$w[i] > j) {
+        if (i == 1) {
+          m[i, j] = 0
+        }
+        else {
+          m[i, j] = m[i-1, j]
+        }
+      }
+      else {
+        m[i, j] = max(m[i-1, j], m[i-1, j-x$w[i]] + x$v[i])
+      }
+    }
+  }
+  return(m[nrow(x), W])
+}
 
 #' knapsack_input_validation
 #'
@@ -77,84 +106,7 @@ knapsack_objects <-
   )
 
 print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
+print(knapsack_dynamic(x = knapsack_objects[1:8,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 2000))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 2000))
-
-
-
-##--------------------------------------------------------
-
-#' dynamic programming
-#'
-#' @param x A data.frame with the colums v (value) and w (weight) as numerical values.
-#' @param W Maximum weight.
-#'
-#' @return Returns the best combination of objects to pick, so that v is max.
-#' @export
-#' 
-
-dynamic_programming_knapsack = function(x, W) {
-  knapsack_input_validation(x, W)
-  limit = nrow(x)
-  
-  m = as.data.frame(0)
-  
-  for (j in 1:W+1){
-    m[1, j] = 0
-  }
-  
-  for (i in 1:limit){
-    for (j in 0:W){
-      if (x[i,2] > (j-1)){
-        if(i == 1){
-          m[i, j] = 0
-        }
-        else{
-          m[i, j] = m[i-1, j]
-      }
-     
-      else{
-        m[i, j] = max(m[i-1, j], m[i-1, (j-1)-x[i,1]] + x[i,2])
-      }
-        
-    }
-      
-  }
-  return(m)
-  
-}
-
-
-print(dynamic_programming_knapsack(x = knapsack_objects[1:8,], W = 3500))
-
-
-
-
-
-
-for (i in 1:W) {
-  m[i, 1] = 0
-}
-
-for (i in 1:W){-
-    for (j in 1:limit+1){
-      print(i)
-      print(j)
-      if (x[i,1] > j-1){
-        if(i == 1){
-          m[i, j] = 0
-        }
-        else{
-          m[i, j] = m[i-1, j]
-        }
-      }
-      else{
-        m[i, j] = max(m[i-1, j], m[i-1, j-x[i,1]] + x[i,2])
-      }
-    }
-  
-}
-
-
-m[i, j] = m[i-1, j]

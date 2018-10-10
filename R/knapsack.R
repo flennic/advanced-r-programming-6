@@ -62,7 +62,6 @@ brute_force_knapsack = function(x, W) {
 #'
 #' @return Returns the best combination of objects to pick, so that v is max.
 #' @export
-#'
 knapsack_dynamic = function(x, W) {
   knapsack_input_validation(x, W)
   m = matrix(rep(0, nrow(x)*W), nrow = nrow(x))
@@ -82,7 +81,32 @@ knapsack_dynamic = function(x, W) {
       }
     }
   }
-  return(m[nrow(x), W])
+
+  # getting items
+  in_list = c(1:nrow(x))
+
+  row_index = nrow(m)
+  col_index = ncol(m)
+
+  while (row_index > 0) {
+
+    if (row_index == 1) {
+      if (m[row_index, col_index] == 0) {
+        in_list = in_list[in_list != row_index]
+      }
+      break
+    }
+
+    if (m[row_index, col_index] == m[row_index-1, col_index]) {
+      in_list = in_list[in_list != row_index]
+    }
+    else {
+      col_index = col_index - x$w[row_index]
+    }
+    row_index = row_index - 1
+  }
+
+  return(list(value = m[nrow(x), W], elements = in_list))
 }
 
 #' knapsack_input_validation

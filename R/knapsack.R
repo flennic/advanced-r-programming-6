@@ -38,7 +38,7 @@ brute_force_knapsack = function(x, W) {
   # All combinations of items as binary. If more than 32 objects, it breaks
   bin_rep = sapply(c(1:2^limit-1), function(x) { as.binary(x, n = limit) })
 
-  # Get a list ob combination objects containign v, w and s. v and w will be 0 if w > W
+  # Get a list ob combination objects containign v, w and s
   combination_objects = apply(bin_rep, 2, get_combination_object)
 
   # Convert list of lists to a better usable dat.frame

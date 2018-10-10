@@ -134,3 +134,26 @@ print(knapsack_dynamic(x = knapsack_objects[1:8,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 2000))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 2000))
+
+
+#' knapsack dynamic
+#'
+#' @param x A data.frame with the colums v (value) and w (weight) as numerical values.
+#' @param W Maximum weight.
+#'
+#' @return Returns the best combination of objects to pick, so that v is max.
+#' @export
+knapsack_greedy = function(x, W) {
+  knapsack_input_validation(x, W)
+  
+  x$ratio = x$v/x$w
+  x = x[order(-x$ratio),] 
+  
+  x$csum = cumsum(x$w)
+  
+  e = rownames(subset(x, x$csum <= W))
+  
+  return(list(value = max(subset(x, x$csum <= W)$csum), elements = e))
+}
+# print(knapsack_greedy(x = knapsack_objects[1:8,], W = 3500))
+

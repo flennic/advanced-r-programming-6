@@ -1,4 +1,4 @@
-# library(binaryLogic)
+ library(binaryLogic)
 
 #' combination_object_output
 #'
@@ -46,7 +46,7 @@ brute_force_knapsack = function(x, W) {
   colnames(combination_objects.as.df) = c('v', 'w', 's')
 
   # Filter all entries that exceed the weight limit
-  combination_objects.as.df = combination_objects.as.df[which(combination_objects.as.df$w < W),]
+  combination_objects.as.df = combination_objects.as.df[which(combination_objects.as.df$w <= W),]
 
   # Get the entry with the maximum value
   combination_objects.as.df = combination_objects.as.df[which.max(combination_objects.as.df$v),]
@@ -69,14 +69,14 @@ knapsack_input_validation = function(df, W) {
   if (!is.numeric(W)) stop("W must be numeric.")
 }
 
-# set.seed(42)
-# n <- 2000
-# knapsack_objects <-
-#   data.frame(
-#     w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
-#   )
-#
-# print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
+set.seed(42)
+n <- 2000
+knapsack_objects <-
+  data.frame(
+    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
+  )
+
+print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 3500))
 # print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 2000))
 # print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 2000))

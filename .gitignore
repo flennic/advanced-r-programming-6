@@ -1,0 +1,11 @@
+.Rproj.user/
+.Rbuildignore
+proj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+.Rproj
+inst/doc
+
+.Rproj.user

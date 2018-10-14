@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 library(binaryLogic)
 library(knapsack)
 library(ggplot2)
+library(yarrr)
 
 load("../data/benchmark.RData")
 
@@ -92,8 +93,28 @@ print(benchmark.df)
 
 The plotted data looks like this:
 
-```{r, echo = FALSE, eval = TRUE}
-ggplot() + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$single, color = "Parallel")) + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$parallel, color="Single")) + theme_light() + labs(x = "Number of Items", y = "Seconds") + ggtitle("Benchmark of brute_force_knapsack() with Single and Multi Cores") + scale_color_manual(values = c('Parallel' = 'green', 'Single' = 'orange')) + labs(color = 'Legend')
+```{r, echo = FALSE, eval = TRUE, fig.width = 7, fig.height = 4, fig.align = 'center'}
+
+
+
+  gg <- ggplot(benchmark.df, aes(x = benchmark.df$noItems)) +
+     geom_area(aes(y = benchmark.df$single), colour = "orange", fill = yarrr::transparent("orange", trans.val = .9))+
+     geom_area(aes(y = benchmark.df$parallel), colour = "green", fill = yarrr::transparent("green", trans.val = .9))+
+    labs(title="Brute Force Benchmark",
+         subtitle="Single core vs 8 core performance",
+         y="Time in seconds",
+         x="Number of Knapsak objects",
+         caption = "i7-4000 CPU, RAM 16GB",
+         color = 'legend')
+
+  plot(gg) 
+  
+  
+
+
+
+
+# ggplot() + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$single, color = "Parallel")) + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$parallel, color="Single")) + theme_light() + labs(x = "Number of Items", y = "Seconds") + ggtitle("Benchmark of brute_force_knapsack() with Single and Multi Cores") + scale_color_manual(values = c('Parallel' = 'green', 'Single' = 'orange')) + labs(color = 'Legend')
 ```
 
 We can see, that around an item count of 12, the parallelized version has a better performance. The reason why this performance increase only applies at an item count around 12 is the overhead for spinning up thread for parallelization.

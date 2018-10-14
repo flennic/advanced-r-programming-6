@@ -1,0 +1,69 @@
+---
+title: "Knapsack"
+author: "Annalena Erhard, Ruben J Munoz, Maximilian Pfundstein"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Knapsack}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, eval = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, include = TRUE, eval = FALSE}
+library(binaryLogic)
+library(knapsack)
+
+set.seed(42)
+n <- 2000
+knapsack_objects <-
+  data.frame(
+    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
+)
+```
+
+## Questions
+
+### How much time does it takes to run the algorithm for n = 16 objects?
+
+```{r, include = TRUE, eval = FALSE}
+print(system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)))
+```
+
+```
+user  system elapsed 
+ 14.657   0.084  14.767
+```
+
+### How much time does it takes to run the algorithm for n = 500 objects?
+
+```{r, include = TRUE, eval = FALSE}
+print(system.time(dynamic_knapsack(x = knapsack_objects[1:500,], W = 3500)))
+```
+
+```
+user  system elapsed 
+ 18.113   0.088  18.225
+```
+
+### How much time does it takes to run the algorithm for n = 1000000 objects?
+
+```{r, include = TRUE, eval = FALSE}
+print(system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)))
+```
+
+```
+user  system elapsed 
+  1.217   0.056   1.275
+```
+
+### What performance gain could you get by trying to improving your code?
+
+### What performance gain could you get by parallelizing brute force search?
+

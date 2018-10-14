@@ -139,16 +139,16 @@ knapsack_input_validation = function(df, W) {
   if (W < 0) stop("W msut not be negative")
 }
 
-set.seed(42)
-n <- 2000
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
-  )
+#set.seed(42)
+#n <- 2000
+#knapsack_objects <-
+#  data.frame(
+#    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
+#)
 
-#print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
-#print(dynamic_knapsack(x = knapsack_objects[1:400,], W = 3500))
-#print(greedy_knapsack(x = knapsack_objects[1:400,], W = 3500))
+#print(system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)))
+#print(system.time(dynamic_knapsack(x = knapsack_objects[1:500,], W = 3500)))
+#print(system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)))
 #print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 3500))
 #print(brute_force_knapsack(x = knapsack_objects[1:8,], W = 2000))
 #print(brute_force_knapsack(x = knapsack_objects[1:12,], W = 2000))

@@ -16,6 +16,7 @@ combination_object_output = function(obj) {
 #'
 #' @param x A data.frame with the colums v (value) and w (weight) as numerical values.
 #' @param W Maximum weight.
+#' @param parallel Set to TRUE if execution should be parallelized. Default is FALSE.
 #'
 #' @return Returns the best combination of objects to pick, so that v is max.
 #' @export
@@ -163,14 +164,24 @@ knapsack_input_validation = function(df, W) {
   if (W < 0) stop("W msut not be negative")
 }
 
-#set.seed(42)
-#n <- 2000
-#knapsack_objects <-
-#  data.frame(
-#    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
-#  )
+set.seed(42)
+n <- 2000
+knapsack_objects <-
+  data.frame(
+    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
+  )
 
-#print(system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)))
+benchmark.df = data.frame(noItems=integer(),
+                 single=double(),
+                 parallel=double())
+
+for (i in c(2:18)) {
+  singleBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500)))
+  parallelBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500, parallel = TRUE)))
+  benchmark.df = rbind(benchmark.df, data.frame(noItems = i, single = singleBench, parallel = parallelBench))
+}
+
+#print(system.time(brute_force_knapsack(x = knapsack_objects[1:2,], W = 3500)))
 #print(system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = TRUE)))
 #print(system.time(dynamic_knapsack(x = knapsack_objects[1:500,], W = 3500)))
 #print(system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)))

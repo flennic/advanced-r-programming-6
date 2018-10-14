@@ -16,9 +16,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, include = TRUE, eval = FALSE}
+```{r, include = FALSE, eval = TRUE}
 library(binaryLogic)
 library(knapsack)
+library(ggplot2)
+
+load("../data/benchmark.RData")
 
 set.seed(42)
 n <- 2000
@@ -64,6 +67,33 @@ user  system elapsed
 ```
 
 ### What performance gain could you get by trying to improving your code?
+There was not much left to improve, we used apply functions straight away to avoid the slowness of common loops. Therefore please skip right to the next chapter.
 
 ### What performance gain could you get by parallelizing brute force search?
+For performing a benchmark table, we ran the bruteforce method with 2..18 items each single core and parallel. The code we used for this is:
 
+```{r, include = TRUE, eval = FALSE}
+benchmark.df = data.frame(noItems=integer(),
+                 single=double(),
+                 parallel=double())
+
+for (i in c(2:18)) {
+  singleBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500)))
+  parallelBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500, parallel = TRUE)))
+  benchmark.df = rbind(benchmark.df, data.frame(noItems = i, single = singleBench, parallel = parallelBench))
+}
+```
+
+The dataframe looks like this:
+
+```{r, include = TRUE, eval = TRUE}
+print(benchmark.df)
+```
+
+The plotted data looks like this:
+
+```{r, echo = FALSE, eval = TRUE}
+ggplot() + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$single, color = "Parallel")) + geom_line(aes(x=benchmark.df$noItems, y=benchmark.df$parallel, color="Single")) + theme_light() + labs(x = "Number of Items", y = "Seconds") + ggtitle("Benchmark of brute_force_knapsack() with Single and Multi Cores") + scale_color_manual(values = c('Parallel' = 'green', 'Single' = 'orange')) + labs(color = 'Legend')
+```
+
+We can see, that around an item count of 12, the parallelized version has a better performance. The reason why this performance increase only applies at an item count around 12 is the overhead for spinning up thread for parallelization.

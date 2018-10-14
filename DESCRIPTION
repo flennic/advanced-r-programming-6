@@ -7,7 +7,7 @@ Maintainer: Maximilian Pfundstein <maximilian@pfundstein.org>
 Description: Solves the knapsack problem.
 License: Apache License
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Imports: binaryLogic,
     parallel
 RoxygenNote: 6.1.0

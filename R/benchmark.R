@@ -8,4 +8,4 @@
 #'   \item{single}{Computational time for single core in milliseconds.}
 #'   \item{parallel}{Computational time for multi core in milliseconds.}
 #' }
-"benchmark"
+"benchmark.df"

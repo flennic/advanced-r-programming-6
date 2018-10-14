@@ -164,22 +164,22 @@ knapsack_input_validation = function(df, W) {
   if (W < 0) stop("W msut not be negative")
 }
 
-set.seed(42)
-n <- 2000
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
-  )
-
-benchmark.df = data.frame(noItems=integer(),
-                 single=double(),
-                 parallel=double())
-
-for (i in c(2:18)) {
-  singleBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500)))
-  parallelBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500, parallel = TRUE)))
-  benchmark.df = rbind(benchmark.df, data.frame(noItems = i, single = singleBench, parallel = parallelBench))
-}
+# set.seed(42)
+# n <- 2000
+# knapsack_objects <-
+#   data.frame(
+#     w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000)
+#   )
+#
+# benchmark.df = data.frame(noItems=integer(),
+#                  single=double(),
+#                  parallel=double())
+#
+# for (i in c(2:18)) {
+#   singleBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500)))
+#   parallelBench = sum(system.time(brute_force_knapsack(x = knapsack_objects[1:i,], W = 3500, parallel = TRUE)))
+#   benchmark.df = rbind(benchmark.df, data.frame(noItems = i, single = singleBench, parallel = parallelBench))
+# }
 
 #print(system.time(brute_force_knapsack(x = knapsack_objects[1:2,], W = 3500)))
 #print(system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500, parallel = TRUE)))

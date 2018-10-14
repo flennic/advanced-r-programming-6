@@ -4,12 +4,14 @@
 \alias{brute_force_knapsack}
 \title{brute_force_knapsack}
 \usage{
-brute_force_knapsack(x, W)
+brute_force_knapsack(x, W, parallel = FALSE)
 }
 \arguments{
 \item{x}{A data.frame with the colums v (value) and w (weight) as numerical values.}
 
 \item{W}{Maximum weight.}
+
+\item{parallel}{Set to TRUE if execution should be parallelized. Default is FALSE.}
 }
 \value{
 Returns the best combination of objects to pick, so that v is max.

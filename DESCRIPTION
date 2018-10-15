@@ -10,7 +10,8 @@ Encoding: UTF-8
 LazyData: false
 Imports: binaryLogic,
     parallel,
-    ggplot2
+    ggplot2,
+    yarrr
 RoxygenNote: 6.1.0
 Suggests:
     testthat,
